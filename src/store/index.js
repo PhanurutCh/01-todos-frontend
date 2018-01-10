@@ -18,6 +18,12 @@ export const store = new Vuex.Store({
     },
     CHANGE_VISIBILITY (state, newVisibilityValue) {
       state.visibility = newVisibilityValue
+    },
+    REMOVE_TODO (state, index) {
+      state.todos.splice(index, 1)
+    },
+    CHANG_COMPLETED (state, {index, value}) {
+      state.todos[index].completed = value
     }
   },
   actions: {
@@ -26,6 +32,13 @@ export const store = new Vuex.Store({
     },
     changeVisibility ({commit}, newVisibilityValue) {
       commit('CHANGE_VISIBILITY', newVisibilityValue)
+    },
+    RECIVE_TODO ({commit}, index) {
+      commit('REMOVE_TODO', index)
+    },
+    CHANG_COMPLETED ({commit}, obj) {
+      console.log(obj)
+      commit('CHANG_COMPLETED', obj)
     }
   },
   getters: {
