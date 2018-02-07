@@ -31,6 +31,18 @@ export const store = new Vuex.Store({
           state.todos.splice(i, 1)
         }
       }
+    },
+    SaveValue (state, valuenew) {
+      localStorage.setItem('todos', JSON.stringify(valuenew))
+    },
+    GetValue (state) {
+      let todos = localStorage.getItem('todos')
+      if (todos) {
+        state.todos = JSON.parse(todos)
+      }
+    },
+    Move (state, valuemove) {
+      state.todos.splice(valuemove.newIndex, 0, state.todos.splice(valuemove.oldIndex, 1)[0])
     }
   },
   actions: {
@@ -49,6 +61,15 @@ export const store = new Vuex.Store({
     },
     CLEAR_COMPLETED ({commit}) {
       commit('CLEAR_COMPLETED')
+    },
+    CALL_VALUE ({commit}, valuenew) {
+      commit('SaveValue', valuenew)
+    },
+    CALL_GET ({commit}) {
+      commit('GetValue')
+    },
+    CALL_MOVE ({commit}, valuemove) {
+      commit('Move', valuemove)
     }
   },
   getters: {
